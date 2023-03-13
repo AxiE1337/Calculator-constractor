@@ -67,7 +67,9 @@ function Canvas() {
     e.currentTarget.style.backgroundColor = 'white'
     if (e.currentTarget.className === 'canvas' || 'canvasEmpty') {
       const part = parts.find((part) => part.id === currentPartId)
-      dispatch(addPartCanvas(part))
+      if (part) {
+        dispatch(addPartCanvas(part))
+      }
     }
   }
 

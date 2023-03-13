@@ -19,6 +19,7 @@ function CalcRunTime({ parts }: ICalcRunTime) {
     if (result === 'Не определено') {
       return
     }
+    if (!n1) return
     setOperand(operand)
   }
   const handleEquals = () => {

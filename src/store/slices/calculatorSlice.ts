@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { IPart } from '../../types'
 
-export interface CounterState {
+export interface InitialState {
   calculatorParts: IPart[]
   calculatorPartsCanvas: IPart[]
   currentPartId: number | null
 }
 
-const initialState: CounterState = {
+const initialState: InitialState = {
   calculatorParts: [
     { id: 1, index: 1, isDisabled: false, name: 'display', value: 0 },
     {
@@ -34,7 +34,7 @@ export const calculatorSlice = createSlice({
   name: 'calculator',
   initialState,
   reducers: {
-    addPartCanvas: (state, { payload }) => {
+    addPartCanvas: (state, { payload }: { payload: IPart }) => {
       const hasPart = state.calculatorPartsCanvas.find(
         (part) => part.id === payload.id
       )
@@ -48,7 +48,7 @@ export const calculatorSlice = createSlice({
         state.calculatorPartsCanvas.push(payload)
       }
     },
-    removePartCanvas: (state, { payload }) => {
+    removePartCanvas: (state, { payload }: { payload: number }) => {
       const calcPart = state.calculatorParts.find(
         (part) => part.id === payload
       ) as IPart
@@ -58,10 +58,10 @@ export const calculatorSlice = createSlice({
         (part) => part.id !== payload
       )
     },
-    setArray: (state, { payload }) => {
+    setArray: (state, { payload }: { payload: IPart[] }) => {
       state.calculatorPartsCanvas = payload
     },
-    setCurrentPartId: (state, { payload }) => {
+    setCurrentPartId: (state, { payload }: { payload: number }) => {
       state.currentPartId = payload
     },
   },
