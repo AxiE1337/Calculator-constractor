@@ -12,7 +12,7 @@ function Part({
       key={item.id}
       className={item?.name}
       style={{
-        opacity: item.isDisabled ? 0.3 : 1,
+        opacity: item.isDisabled ? 0.5 : 1,
         userSelect: item.isDisabled ? 'none' : 'all',
       }}
       onDoubleClick={handeleDoubleClick}
@@ -27,7 +27,10 @@ function Part({
         </button>
       ))}
       {item.buttons?.map((btn, index) => (
-        <button className={item.name + '__btn'} key={index}>
+        <button
+          className={item.name + '__btn' + ` ${item.name + '__btn' + btn}`}
+          key={index}
+        >
           {btn}
         </button>
       ))}
