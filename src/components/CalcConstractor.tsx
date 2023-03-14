@@ -2,18 +2,18 @@ import { DragEvent, memo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../store'
 import {
-  addPartCanvas,
-  removePartCanvas,
+  addPartConstractor,
+  removePartConstractor,
   setArray,
 } from '../store/slices/calculatorSlice'
 import type { IPart } from '../types'
 import CalcRunTime from './CalcRunTime'
 import Part from './Part'
 
-function Canvas() {
+function CalcConstractor() {
   const [isConstracting, setIsConstracting] = useState<boolean>(true)
-  const partsCanvas = useSelector(
-    (state: RootState) => state.calculator.calculatorPartsCanvas
+  const partsConstructor = useSelector(
+    (state: RootState) => state.calculator.calculatorPartsConstractor
   )
   const parts = useSelector(
     (state: RootState) => state.calculator.calculatorParts
@@ -37,7 +37,7 @@ function Canvas() {
   ) => {
     e.preventDefault()
     if (!draggable?.index) return
-    const newParts = [...partsCanvas]
+    const newParts = [...partsConstructor]
       .map((part) => {
         if (part.id === id) {
           return { ...part, index: draggable?.index }
@@ -65,16 +65,16 @@ function Canvas() {
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.currentTarget.style.backgroundColor = 'white'
-    if (e.currentTarget.className === 'canvas' || 'canvasEmpty') {
+    if (e.currentTarget.className === 'constractor' || 'constractorEmpty') {
       const part = parts.find((part) => part.id === currentPartId)
       if (part) {
-        dispatch(addPartCanvas(part))
+        dispatch(addPartConstractor(part))
       }
     }
   }
 
   const handeleDoubleClick = (id: number) => {
-    dispatch(removePartCanvas(id))
+    dispatch(removePartConstractor(id))
   }
 
   return (
@@ -95,12 +95,14 @@ function Canvas() {
       </div>
       {isConstracting ? (
         <div
-          className={partsCanvas.length > 0 ? 'canvas' : 'canvasEmpty'}
+          className={
+            partsConstructor.length > 0 ? 'constractor' : 'constractorEmpty'
+          }
           onDragOver={handleOnDragOver}
           onDragLeave={handleDragLeave}
           onDrop={(e) => handleDrop(e)}
         >
-          {partsCanvas.length < 1 && (
+          {partsConstructor.length < 1 && (
             <div>
               <h1>Перетащите сюда</h1> <br />
               <p>
@@ -110,7 +112,7 @@ function Canvas() {
               </p>
             </div>
           )}
-          {partsCanvas.map((item) => (
+          {partsConstructor.map((item) => (
             <Part
               item={item}
               key={item.id}
@@ -121,10 +123,10 @@ function Canvas() {
           ))}
         </div>
       ) : (
-        <CalcRunTime parts={partsCanvas} />
+        <CalcRunTime parts={partsConstructor} />
       )}
     </main>
   )
 }
 
-export default memo(Canvas)
+export default memo(CalcConstractor)

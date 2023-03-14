@@ -73,7 +73,7 @@ function CalcRunTime({ parts }: ICalcRunTime) {
           ))}
           {item.buttons?.map((btn, index) => (
             <button
-              className={item.name + '__btn'}
+              className={item.name + '__btn' + ` ${item.name + '__btn' + btn}`}
               key={index}
               onClick={() => handleBtns(btn)}
             >

@@ -1,11 +1,11 @@
 import Calculator from './components/Calculator'
-import Canvas from './components/Canvas'
+import CalcConstractor from './components/CalcConstractor'
 
 function App() {
   return (
     <div className='App'>
       <Calculator />
-      <Canvas />
+      <CalcConstractor />
     </div>
   )
 }

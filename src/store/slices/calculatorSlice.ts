@@ -3,7 +3,7 @@ import type { IPart } from '../../types'
 
 export interface InitialState {
   calculatorParts: IPart[]
-  calculatorPartsCanvas: IPart[]
+  calculatorPartsConstractor: IPart[]
   currentPartId: number | null
 }
 
@@ -26,7 +26,7 @@ const initialState: InitialState = {
     },
     { id: 4, index: 4, isDisabled: false, name: 'equals' },
   ],
-  calculatorPartsCanvas: [],
+  calculatorPartsConstractor: [],
   currentPartId: null,
 }
 
@@ -34,8 +34,8 @@ export const calculatorSlice = createSlice({
   name: 'calculator',
   initialState,
   reducers: {
-    addPartCanvas: (state, { payload }: { payload: IPart }) => {
-      const hasPart = state.calculatorPartsCanvas.find(
+    addPartConstractor: (state, { payload }: { payload: IPart }) => {
+      const hasPart = state.calculatorPartsConstractor.find(
         (part) => part.id === payload.id
       )
 
@@ -45,21 +45,20 @@ export const calculatorSlice = createSlice({
       calcPart.isDisabled = true
 
       if (!hasPart) {
-        state.calculatorPartsCanvas.push(payload)
+        state.calculatorPartsConstractor.push(payload)
       }
     },
-    removePartCanvas: (state, { payload }: { payload: number }) => {
+    removePartConstractor: (state, { payload }: { payload: number }) => {
       const calcPart = state.calculatorParts.find(
         (part) => part.id === payload
       ) as IPart
       calcPart.isDisabled = false
 
-      state.calculatorPartsCanvas = state.calculatorPartsCanvas.filter(
-        (part) => part.id !== payload
-      )
+      state.calculatorPartsConstractor =
+        state.calculatorPartsConstractor.filter((part) => part.id !== payload)
     },
     setArray: (state, { payload }: { payload: IPart[] }) => {
-      state.calculatorPartsCanvas = payload
+      state.calculatorPartsConstractor = payload
     },
     setCurrentPartId: (state, { payload }: { payload: number }) => {
       state.currentPartId = payload
@@ -67,7 +66,11 @@ export const calculatorSlice = createSlice({
   },
 })
 
-export const { addPartCanvas, removePartCanvas, setArray, setCurrentPartId } =
-  calculatorSlice.actions
+export const {
+  addPartConstractor,
+  removePartConstractor,
+  setArray,
+  setCurrentPartId,
+} = calculatorSlice.actions
 
 export default calculatorSlice.reducer
